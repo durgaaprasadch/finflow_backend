@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; }
+        .email-wrapper { width: 100%; background-color: #f0f4f8; padding: 40px 0; }
+        .card { max-width: 500px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .header { background: linear-gradient(135deg, #00c6ff, #0072ff); padding: 40px 20px; text-align: center; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 26px; font-weight: 600; letter-spacing: 1px; }
+        .content { padding: 40px; color: #334e68; line-height: 1.6; }
+        .content p { font-size: 16px; margin-bottom: 20px; }
+        .details { background-color: #f8fafc; border-radius: 12px; padding: 25px; margin: 25px 0; border-left: 5px solid #00c6ff; }
+        .details-item { margin-bottom: 12px; font-size: 14px; }
+        .details-label { color: #829ab1; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 10px; }
+        .details-value { color: #243b53; font-weight: 600; }
+        .alert-box { background-color: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 15px; color: #c53030; font-size: 14px; display: flex; align-items: center; }
+        .footer { background-color: #f8fafc; padding: 20px; text-align: center; color: #9fb3c8; font-size: 12px; border-top: 1px solid #e2e8f0; }
+        .logo { font-size: 24px; font-weight: 800; color: #ffffff; text-transform: uppercase; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="card">
+            <div class="header">
+                <span class="logo">🌊 FinFlow</span>
+                <h1>Security Notification</h1>
+            </div>
+            <div class="content">
+                <p>Hello <strong th:text="${name}">Valued User</strong>,</p>
+                <p>We detected a new login to your account. To help keep your account secure, we wanted to ensure it was actually you.</p>
+                
+                <div class="details">
+                    <div class="details-item">
+                        <span class="details-label">Time:</span>
+                        <span class="details-value" th:text="${timestamp}">2024-03-31 10:00 AM</span>
+                    </div>
+                    <div class="details-item">
+                        <span class="details-label">Role:</span>
+                        <span class="details-value" th:text="${role}">APPLICANT</span>
+                    </div>
+                    <div class="details-item">
+                        <span class="details-label">IP Address:</span>
+                        <span class="details-value">Configured via Gateway</span>
+                    </div>
+                </div>
+
+                <div class="alert-box">
+                    🚨 If this login attempt was not you, please contact our security center immediately.
+                </div>
+                
+                <p style="margin-top: 30px;">Best regards,<br>The FinFlow Security Team</p>
+            </div>
+            <div class="footer">
+                &copy; 2026 FinFlow Loan Management System. All rights reserved.<br>
+                This is an automated security notification.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

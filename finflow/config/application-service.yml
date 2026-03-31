@@ -1,0 +1,22 @@
+server:
+  port: 8082
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/finflow_application?createDatabaseIfNotExist=true
+    username: root
+    password: Durga@123
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+rabbitmq:
+  exchange: loan.exchange
+  routing:
+    key:
+      submitted: application.submitted.routing.key
+
+springdoc:
+  api-docs:
+    path: /api/v1/applications/v3/api-docs

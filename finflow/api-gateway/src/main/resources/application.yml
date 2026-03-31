@@ -1,0 +1,68 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    name: /logs/gateway.log
+
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: "optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888"
+  cloud:
+    gateway:
+      observability:
+        enabled: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: auth-service-general
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: application-service
+          uri: lb://application-service
+          predicates:
+            - Path=/api/v1/applications/**
+          filters:
+            - AuthenticationFilter
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/api/v1/admin/**
+          filters:
+            - AuthenticationFilter
+        - id: document-service
+          uri: lb://document-service
+          predicates:
+            - Path=/api/v1/documents/**
+          filters:
+            - AuthenticationFilter
+
+jwt:
+  secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    urls:
+      - name: auth-service
+        url: /api/v1/auth/v3/api-docs
+      - name: application-service
+        url: /api/v1/applications/v3/api-docs
+      - name: admin-service
+        url: /api/v1/admin/v3/api-docs
+      - name: document-service
+        url: /api/v1/documents/v3/api-docs

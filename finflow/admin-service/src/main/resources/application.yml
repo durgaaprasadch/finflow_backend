@@ -1,0 +1,60 @@
+server:
+  port: 8083
+  forward-headers-strategy: framework
+
+logging:
+  file:
+    name: /logs/admin.log
+
+spring:
+  application:
+    name: admin-service
+  config:
+    import: "optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888"
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/finflow_admin?createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  jackson:
+    default-property-inclusion: non_null
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans"
+
+
+rabbitmq:
+  exchange: loan.exchange
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      applicationService:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+        minimumNumberOfCalls: 3
+        waitDurationInOpenState: 5000ms
+        failureRateThreshold: 50
+  retry:
+    instances:
+      applicationService:
+        maxAttempts: 3
+        waitDuration: 2000ms
+
+springdoc:
+  api-docs:
+    path: /api/v1/admin/v3/api-docs

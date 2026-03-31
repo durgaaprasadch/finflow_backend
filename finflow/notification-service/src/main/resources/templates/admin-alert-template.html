@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body { font-family: sans-serif; background-color: #f1f1f1; padding: 20px; }
+        .container { background-color: #ffffff; padding: 30px; border-radius: 8px; max-width: 550px; margin: auto; border: 2px solid #5bc0be; }
+        .header { text-align: center; color: #5bc0be; font-size: 26px; font-weight: bold; margin-bottom: 20px; }
+        .footer { text-align: center; color: #888888; font-size: 11px; margin-top: 30px; }
+        .data-point { border-bottom: 1px solid #eeeeee; padding: 10px 0; color: #333; font-size: 14px; }
+        .label { font-weight: bold; color: #5bc0be; width: 140px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">FinFlow Admin Alert</div>
+        <p>Dear <span th:text="${name}">Super Admin</span>,</p>
+        <p th:text="${message}">An administrative event requires your attention:</p>
+        
+        <div class="data-point">
+            <span class="label">Event Status:</span>
+            <span th:text="${status}">PENDING_ACTION</span>
+        </div>
+        <div class="data-point">
+            <span class="label">Application ID:</span>
+            <span th:text="${applicationId}">N/A</span>
+        </div>
+        <div class="data-point">
+            <span class="label">Event Time:</span>
+            <span th:text="${timestamp}">2024-01-01 12:00:00</span>
+        </div>
+        
+        <p>Log in to the administrator portal to review and process this task.</p>
+        
+        <div class="footer">
+            FinFlow System Management Service
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to FinFlow</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e0e0e0; }
+        .header { background-color: #0d1b2a; color: #5bc0be; padding: 30px; text-align: center; border-bottom: 4px solid #5bc0be; }
+        .header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; text-transform: uppercase; }
+        .content { padding: 40px; color: #1b263b; line-height: 1.6; }
+        .greeting { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+        .otp-box { background-color: #f0fdfa; border: 2px dashed #5bc0be; border-radius: 8px; padding: 25px; text-align: center; margin: 30px 0; }
+        .otp-code { font-size: 36px; font-weight: 800; color: #0d1b2a; letter-spacing: 12px; margin: 0; }
+        .footer { background-color: #f8f9fa; color: #777; padding: 20px; text-align: center; font-size: 13px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FINFLOW</h1>
+        </div>
+        <div class="content">
+            <div class="greeting">Welcome, <span th:text="${name}">User</span>!</div>
+            <p>We're excited to have you join FinFlow. To complete your registration and activate your account, please use the verification code below:</p>
+            
+            <div th:if="${otp != null}" class="otp-box">
+                <p style="margin-top: 0; font-weight: 600; color: #5bc0be;">ACCOUNT ACTIVATION CODE</p>
+                <h2 class="otp-code" th:text="${otp}">000000</h2>
+            </div>
+
+            <p th:if="${otp == null}">Your account has been successfully registered and is now being processed.</p>
+            
+            <p>If you didn't create an account with FinFlow, you can safely ignore this email.</p>
+        </div>
+        <div class="footer">
+            &copy; 2024 FinFlow Loan Management System. All rights reserved.<br>
+            Secure | Observable | Reliable
+        </div>
+    </div>
+</body>
+</html>

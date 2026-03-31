@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinFlow - Secure Verification</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
+        .wrapper { width: 100%; background-color: #f8fafc; padding: 60px 0; }
+        .container { max-width: 500px; margin: 0 auto; background-color: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.08); }
+        .header { background: #0f172a; padding: 40px; text-align: center; }
+        .logo { font-size: 26px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 4px; }
+        .content { padding: 48px; color: #334155; text-align: center; }
+        .greeting { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+        .message { font-size: 16px; color: #64748b; margin-bottom: 40px; }
+        .otp-container { background: #f1f5f9; border-radius: 20px; padding: 30px; margin: 20px 0; border: 1px solid #e2e8f0; }
+        .otp-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+        .otp-code { font-size: 48px; font-weight: 900; color: #0f172a; letter-spacing: 12px; margin: 0; font-family: 'Courier New', Courier, monospace; }
+        .timer { display: block; margin-top: 30px; font-size: 13px; color: #ef4444; font-weight: 600; padding: 8px 16px; background: #fef2f2; border-radius: 100px; display: inline-block; }
+        .footer { padding: 30px; background: #f8fafc; text-align: center; border-top: 1px solid #f1f5f9; color: #94a3b8; font-size: 12px; line-height: 1.6; }
+        .secure-badge { display: inline-block; padding: 4px 12px; background: #e0f2fe; color: #0369a1; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <span class="logo">FinFlow</span>
+            </div>
+            <div class="content">
+                <div class="secure-badge">🔒 Secure Multi-Service Link</div>
+                <div class="greeting">Verify Identity</div>
+                <p class="message" th:text="${message}">Someone requested a security code for your account.</p>
+                
+                <div class="otp-container">
+                    <span class="otp-label">Verification Code</span>
+                    <h2 class="otp-code" th:text="${otp}">829103</h2>
+                </div>
+                
+                <span class="timer">⏱️ Expires in 10 minutes</span>
+            </div>
+            <div class="footer">
+                &copy; 2026 FinFlow Loan Management. <br>
+                For security reasons, never share this code with anyone. <br>
+                All actions are audited via zipkin tracing.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body { font-family: sans-serif; background-color: #fee; padding: 20px; }
+        .container { background-color: #ffffff; padding: 30px; border-radius: 8px; max-width: 500px; margin: auto; border: 2px solid #e63946; }
+        .header { text-align: center; color: #e63946; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .footer { text-align: center; color: #888888; font-size: 12px; margin-top: 20px; }
+        .otp-code { font-size: 32px; font-weight: bold; color: #e63946; letter-spacing: 5px; text-align: center; display: block; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Account Deletion Request</div>
+        <p>Dear <span th:text="${name}">User</span>,</p>
+        <p>We received a request to permanently delete your FinFlow account. This action is **irreversible**.</p>
+        <p>To confirm deletion, use the verification code below:</p>
+        <span class="otp-code" th:text="${otp}">000000</span>
+        <p>If you did not request this, please ignore this email and your account will remain active.</p>
+        <div class="footer">
+            FinFlow Safety & Privacy Team
+        </div>
+    </div>
+</body>
+</html>

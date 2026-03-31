@@ -1,0 +1,56 @@
+server:
+  port: 8085
+
+logging:
+  file:
+    name: logs/notification-service.log
+  level:
+    com.finflow.notification: DEBUG
+    org.springframework.amqp: DEBUG
+    org.springframework.mail: DEBUG
+
+spring:
+  application:
+    name: notification-service
+  config:
+    import: "optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888"
+  
+  # RabbitMQ Configuration (Minimal local, rest from Config Server)
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: 5672
+    template:
+      observation: { enabled: true }
+    listener:
+      simple:
+        observation: { enabled: true }
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans"
+
+# Custom Properties for Notification Service (Mapped from Config Server)
+notification:
+  queues:
+    registration: ${spring.rabbitmq.notification.queues.registration:registration-queue}
+    loan-status: ${spring.rabbitmq.notification.queues.loan-status:loan-status-queue}
+    login: ${spring.rabbitmq.notification.queues.login:login-queue}
+  exchanges:
+    notification: ${spring.rabbitmq.notification.exchanges.notification:notification-exchange}
+  routing-keys:
+    registration: ${spring.rabbitmq.notification.routing-keys.registration:notification.registration}
+    loan-status: ${spring.rabbitmq.notification.routing-keys.loan-status:notification.loan-status}
+    login: ${spring.rabbitmq.notification.routing-keys.login:notification.login}

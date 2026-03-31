@@ -1,0 +1,38 @@
+server:
+  port: 8084
+  forward-headers-strategy: framework
+
+logging:
+  file:
+    name: /logs/document.log
+
+spring:
+  application:
+    name: document-service
+  config:
+    import: "optional:configserver:http://${CONFIG_SERVER_HOST:localhost}:8888"
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/finflow_document?createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://${ZIPKIN_HOST:localhost}:9411/api/v2/spans"
+
+rabbitmq:
+  exchange: loan.exchange
+  routing:
+    key:
+      uploaded: document.uploaded.routing.key
+
+springdoc:
+  api-docs:
+    path: /api/v1/documents/v3/api-docs
